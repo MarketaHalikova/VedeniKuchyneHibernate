@@ -51,6 +51,12 @@ public class Recept implements Serializable {
 		this.seznamSurovinReceptu = seznamSurovinReceptu;
 	}
 
+	public Recept(String nazev, String postup, String kategorie) {
+		this.nazev = nazev;
+		this.postup = postup;
+		this.kategorie = kategorie;
+	}
+
 	/**
 	 * Metoda získává název receptu
 	 */
