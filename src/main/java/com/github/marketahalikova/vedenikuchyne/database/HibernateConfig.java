@@ -1,6 +1,8 @@
 package com.github.marketahalikova.vedenikuchyne.database;
 
 
+import com.github.marketahalikova.vedenikuchyne.logika.Recept;
+import com.github.marketahalikova.vedenikuchyne.logika.Surovina;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
@@ -27,14 +29,15 @@ public class HibernateConfig {
             props.put("hibernate.current_session_context_class", "thread");
             props.put("hibernate.show_sql", "true");
             // Jak se hibernate chova k datum v databazi
-            props.put("hibernate.hbm2ddl.auto", "none");
+            props.put("hibernate.hbm2ddl.auto", "create");
             configuration.setProperties(props);
 
             //we can set mapping file or class with annotation
             //addClass(Employee1.class) will look for resource
             // com/journaldev/hibernate/model/Employee1.hbm.xml (not good)
 
-            //////////////////////////////////////////////////////////////configuration.addAnnotatedClass(User.class);
+            configuration.addAnnotatedClass(Recept.class);
+            configuration.addAnnotatedClass(Surovina.class);
 
 
             ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();

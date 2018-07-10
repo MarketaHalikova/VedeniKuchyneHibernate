@@ -1,5 +1,6 @@
 package com.github.marketahalikova.vedenikuchyne.logika;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,17 +13,29 @@ import java.util.List;
  * @author Johanna Švugerová, Markéta Halíková, Martin Weisser
  *
  */
+@Entity
 public class Recept implements Serializable {
 
+	@Transient
 	private static final long serialVersionUID = 9066672598984451474L;
 
+	@Id
+	@Column(nullable = false, unique = true)
 	private String nazev;
-
+	@Column(nullable = false)
 	private String postup;
-
+	@Column(nullable = false)
 	private String kategorie;
 
+	@ManyToMany(targetEntity = Surovina.class, fetch = FetchType.EAGER)
+//	@JoinTable(name = "recept_surovina",
+//			joinColumns = { @JoinColumn(name = "nazev") },
+//			inverseJoinColumns = { @JoinColumn(name = "nazev")})
+	@Transient
 	private List < Surovina > seznamSurovinReceptu;
+
+	public Recept() {
+	}
 
 	/**
 	 * Konstruktor třídy Recept.
