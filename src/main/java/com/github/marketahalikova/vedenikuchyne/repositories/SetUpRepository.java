@@ -14,31 +14,39 @@ public class SetUpRepository {
 
     private static void saveSuroviny() {
 
-        Surovina surovina1 = new Surovina("jablko", Surovina.Jednotka.ks,3, true);
-        Surovina surovina2 = new Surovina("jahoda", Surovina.Jednotka.ks,4, false);
+        Surovina jablko = new Surovina("jablko", Surovina.Jednotka.ks,3, true);
+        Surovina jahoda = new Surovina("jahoda", Surovina.Jednotka.ks,4, false);
 
         Session session = HibernateConfig.getSessionJavaConfigFactory().openSession();
         session.beginTransaction();
-        session.save(surovina1);
-        session.save(surovina2);
+        session.save(jablko);
+        session.save(jahoda);
         session.getTransaction().commit();
-        System.out.println("Surovina 1: " + surovina1.getNazev());
-        System.out.println("Surovina 2: " + surovina2.getNazev());
+        System.out.println("Surovina 1: " + jablko.getNazev());
+        System.out.println("Surovina 2: " + jahoda.getNazev());
         session.close();
 
     }
 
     public static void saveRecepty(){
-        Recept recept1 = new Recept("jablko", "vyrobit", "krm");
-        Recept recept2 = new Recept("jahoda", "vyrobit", "krm");
+        Recept recept1 = new Recept("recept1", "vyrobit", "krm");
+        Recept recept2 = new Recept("recept2", "vyrobit", "krm");
+        Surovina ananas = new Surovina("ananas", Surovina.Jednotka.ks,3, true);
+        Surovina meloun = new Surovina("meloun", Surovina.Jednotka.ks,4, false);
+        recept1.getSeznamSurovinReceptu().add(ananas);
+        recept1.getSeznamSurovinReceptu().add(meloun);
 
         Session session = HibernateConfig.getSessionJavaConfigFactory().openSession();
         session.beginTransaction();
         session.save(recept1);
         session.save(recept2);
+        session.save(ananas);
+        session.save(meloun);
+
+
+
         session.getTransaction().commit();
-        System.out.println("Recept 1: " + recept1.getNazev());
-        System.out.println("Recept 2: " + recept2.getNazev());
+
         session.close();
     }
 }

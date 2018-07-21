@@ -28,13 +28,13 @@ public class Recept implements Serializable {
 	private String kategorie;
 
 	@ManyToMany(targetEntity = Surovina.class, fetch = FetchType.EAGER)
-//	@JoinTable(name = "recept_surovina",
-//			joinColumns = { @JoinColumn(name = "nazev") },
-//			inverseJoinColumns = { @JoinColumn(name = "nazev")})
-	@Transient
+	@JoinTable(name = "recept_surovina",
+			joinColumns = { @JoinColumn(name = "recept_nazev") },
+			inverseJoinColumns = { @JoinColumn(name = "ingredience_nazev")})
 	private List < Surovina > seznamSurovinReceptu;
 
 	public Recept() {
+	    seznamSurovinReceptu = new ArrayList<>();
 	}
 
 	/**
@@ -45,14 +45,16 @@ public class Recept implements Serializable {
 	 * @param kategorie - kategorie receptu (předkrm/krm/zákrm)
 	 */
 	public Recept(String nazev, String postup, String kategorie, List < Surovina > seznamSurovinReceptu) {
-		this.nazev = nazev;
+        this();
+	    this.nazev = nazev;
 		this.postup = postup;
 		this.kategorie = kategorie;
 		this.seznamSurovinReceptu = seznamSurovinReceptu;
 	}
 
 	public Recept(String nazev, String postup, String kategorie) {
-		this.nazev = nazev;
+        this();
+	    this.nazev = nazev;
 		this.postup = postup;
 		this.kategorie = kategorie;
 	}
